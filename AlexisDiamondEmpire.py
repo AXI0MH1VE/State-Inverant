@@ -1,8 +1,4 @@
-"""
-Remove the line `from __future__ import annotations` as it must be the first line and it caused syntax error.
-This updated file has moved all imports and declarations correctly.
-"""
-Autonomous Invariant Intelligence (Alexis Diamond Empire)
+"""Autonomous Invariant Intelligence (Alexis Diamond Empire)
 
 This module provides a small, self-contained prototype that mirrors the
 architecture described in the accompanying design notes:
