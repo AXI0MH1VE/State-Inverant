@@ -1,0 +1,42 @@
+# Guardian Architecture Diagram v1.0
+
+This is a placeholder for the PNG diagram. The actual diagram would show:
+
+## Visual Representation
+
+```
+[User] --> [API Gateway] --> [Guardian Legal] --> [Guardian Safety] --> [Guardian Audit] --> [Drone Fleet]
+                           |                    |                      |
+                           v                    v                      v
+                      [ASL-1.0 Check]     [Toxicity Scan]       [QLDB Write]
+                      [PII Detection]     [Injection Check]     [Immutable Log]
+                      [IP Contamination]  [Bias Analysis]       [Crypto Hash]
+```
+
+## Key Components
+
+1. **API Gateway (Service-Gateway)**: Entry point, authentication, rate limiting
+2. **Guardian Legal**: Scans for legal violations, PII, IP issues
+3. **Guardian Safety**: Scans for safety issues, toxicity, adversarial attacks
+4. **Guardian Audit**: Writes entire transaction to immutable ledger
+5. **Drone Fleet**: Isolated AI models with no external access
+
+## Data Flow
+
+1. User request enters via Gateway
+2. Gateway routes to Guardian Legal for compliance check
+3. If compliant, passes to Guardian Safety for security check
+4. If safe, routes to Drone for inference
+5. Response goes back through Safety check
+6. Entire lifecycle logged to QLDB by Guardian Audit
+7. Auditable response returned to user
+
+## Security Boundaries
+
+- Guardians have zero external network access
+- Drones can only communicate with Guardians
+- All inter-service communication via gRPC with contracts
+- Immutable audit trail prevents tampering
+
+Date: 2025-11-23
+Version: 1.0

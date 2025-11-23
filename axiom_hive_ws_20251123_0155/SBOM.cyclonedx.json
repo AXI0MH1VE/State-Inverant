@@ -1,0 +1,132 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:1c8a-4b0f-9f2d-7e1a-c3b0",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-11-23T06:59:11.289Z",
+    "component": {
+      "type": "application",
+      "name": "axiom-hive",
+      "version": "1.0.0",
+      "description": "Axiom Hive: Provably Legal and Safe AI Model Architecture",
+      "licenses": [
+        {
+          "license": {
+            "id": "ASL-1.0"
+          }
+        }
+      ],
+      "supplier": {
+        "name": "Axiom Hive Project"
+      }
+    }
+  },
+  "components": [
+    {
+      "type": "framework",
+      "name": "next.js",
+      "version": "14.0.0",
+      "description": "The React Framework for Production",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/next@14.0.0",
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://nextjs.org/"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react",
+      "version": "18.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react@18.2.0"
+    },
+    {
+      "type": "library",
+      "name": "tailwindcss",
+      "version": "3.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/tailwindcss@3.3.0"
+    },
+    {
+      "type": "framework",
+      "name": "golang",
+      "version": "1.21.0",
+      "description": "Go programming language",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "purl": "pkg:golang/go@1.21.0"
+    },
+    {
+      "type": "library",
+      "name": "aws-sdk-go",
+      "version": "1.44.0",
+      "description": "AWS SDK for Go",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/aws/aws-sdk-go@1.44.0"
+    },
+    {
+      "type": "library",
+      "name": "grpc-go",
+      "version": "1.50.0",
+      "description": "gRPC for Go",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "purl": "pkg:golang/google.golang.org/grpc@1.50.0"
+    },
+    {
+      "type": "service",
+      "name": "amazon-qldb",
+      "version": "1.0.0",
+      "description": "Amazon Quantum Ledger Database",
+      "supplier": {
+        "name": "Amazon Web Services"
+      },
+      "licenses": [
+        {
+          "license": {
+            "id": "Proprietary"
+          }
+        }
+      ]
+    }
+  ]
+}

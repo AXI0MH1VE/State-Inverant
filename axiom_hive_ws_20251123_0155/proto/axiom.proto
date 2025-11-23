@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+package axiom;
+
+import "google/protobuf/timestamp.proto";
+
+// Common messages
+message Request {
+  string id = 1;
+  string prompt = 2;
+  map<string, string> metadata = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message Response {
+  string id = 1;
+  string content = 2;
+  ValidationResult validation = 3;
+  google.protobuf.Timestamp timestamp = 4;
+}
+
+message ValidationResult {
+  bool is_valid = 1;
+  string reason = 2;
+  repeated string violations = 3;
+}
+
+message ComplianceResult {
+  bool compliant = 1;
+  string license_version = 2;
+  repeated string violations = 3;
+  map<string, string> metadata = 4;
+}
+
+message HealthStatus {
+  bool healthy = 1;
+  string version = 2;
+  google.protobuf.Timestamp timestamp = 3;
+}
+
+// Service-Gateway API
+service AxiomGateway {
+  rpc IngestRequest(Request) returns (Response);
+  rpc GetHealth(google.protobuf.Empty) returns (HealthStatus);
+}
+
+// Guardian-Legal API
+service GuardianLegal {
+  rpc CheckCompliance(Request) returns (ComplianceResult);
+  rpc GetHealth(google.protobuf.Empty) returns (HealthStatus);
+}
+
+// Guardian-Safety API
+service GuardianSafety {
+  rpc ValidatePrompt(Request) returns (ValidationResult);
+  rpc ValidateResponse(RequestResponse) returns (ValidationResult);
+  rpc GetHealth(google.protobuf.Empty) returns (HealthStatus);
+}
+
+message RequestResponse {
+  Request request = 1;
+  Response response = 2;
+}
+
+// Guardian-Audit API
+service GuardianAudit {
+  rpc LogTransaction(Transaction) returns (LogResult);
+  rpc ExportAuditTrail(Query) returns (AuditData);
+  rpc GetHealth(google.protobuf.Empty) returns (HealthStatus);
+}
+
+message Transaction {
+  Request original_request = 1;
+  ComplianceResult legal_check = 2;
+  ValidationResult safety_check_pre = 3;
+  Response inference_response = 4;
+  ValidationResult safety_check_post = 5;
+  string audit_hash = 6;
+  google.protobuf.Timestamp completed_at = 7;
+}
+
+message LogResult {
+  bool success = 1;
+  string transaction_id = 2;
+  string error_message = 3;
+}
+
+message Query {
+  string service_name = 1;
+  google.protobuf.Timestamp start_time = 2;
+  google.protobuf.Timestamp end_time = 3;
+  int32 limit = 4;
+  string continuation_token = 5;
+}
+
+message AuditData {
+  repeated Transaction transactions = 1;
+  string next_continuation_token = 2;
+  bool has_more = 3;
+}
+
+// Service-Drones API
+service DroneFleet {
+  rpc Infer(Request) returns (Response);
+  rpc GetHealth(google.protobuf.Empty) returns (HealthStatus);
+}
+
+// Web UI API (for dashboard)
+service AxiomDashboard {
+  rpc GetAuditStream(Query) returns (stream Transaction);
+  rpc GetMetrics(MetricsQuery) returns (MetricsResponse);
+  rpc GetHealth(google.protobuf.Empty) returns (HealthStatus);
+}
+
+message MetricsQuery {
+  google.protobuf.Timestamp start_time = 1;
+  google.protobuf.Timestamp end_time = 2;
+  repeated string service_names = 3;
+}
+
+message MetricsResponse {
+  map<string, ServiceMetrics> service_metrics = 1;
+  SystemMetrics system_metrics = 2;
+}
+
+message ServiceMetrics {
+  string service_name = 1;
+  int64 request_count = 2;
+  double avg_response_time = 3;
+  double error_rate = 4;
+  int64 active_connections = 5;
+}
+
+message SystemMetrics {
+  double cpu_utilization = 1;
+  double memory_utilization = 2;
+  int64 total_requests = 3;
+  int64 total_errors = 4;
+}
+
+// Empty message for requests that don't need parameters
+message google.protobuf.Empty {}

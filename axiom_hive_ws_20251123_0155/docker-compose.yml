@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: services/service-gateway/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - GUARDIAN_LEGAL_URL=http://guardian-legal:8081
+      - GUARDIAN_SAFETY_URL=http://guardian-safety:8082
+      - GUARDIAN_AUDIT_URL=http://guardian-audit:8083
+      - DRONE_URL=http://drone:8084
+    depends_on:
+      - guardian-legal
+      - guardian-safety
+      - guardian-audit
+      - drone
+    networks:
+      - axiom-network
+
+  guardian-legal:
+    build:
+      context: .
+      dockerfile: services/service-guardians/guardian-legal/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - QLDB_LEDGER_NAME=axiom-audit
+    networks:
+      - axiom-network
+
+  guardian-safety:
+    build:
+      context: .
+      dockerfile: services/service-guardians/guardian-safety/Dockerfile
+    ports:
+      - "8082:8082"
+    networks:
+      - axiom-network
+
+  guardian-audit:
+    build:
+      context: .
+      dockerfile: services/service-guardians/guardian-audit/Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - QLDB_LEDGER_NAME=axiom-audit
+    networks:
+      - axiom-network
+
+  drone:
+    build:
+      context: .
+      dockerfile: services/service-drones/Dockerfile
+    ports:
+      - "8084:8084"
+    networks:
+      - axiom-network
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - GATEWAY_URL=http://gateway:8080
+    depends_on:
+      - gateway
+    networks:
+      - axiom-network
+
+networks:
+  axiom-network:
+    driver: bridge
+
+volumes:
+  qldb-data:
