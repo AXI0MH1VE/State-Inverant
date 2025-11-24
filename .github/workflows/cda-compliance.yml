@@ -1,0 +1,13 @@
+name: CDA-v1.0 Compliance
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          test -f .github/CONSTITUTION.md && echo "✅ Constitution"
+          test -f .github/COMPLIANCE.md && echo "✅ Compliance"
+          grep -q "CDA-v1.0" README.md && echo "✅ README"

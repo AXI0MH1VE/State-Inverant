@@ -2,6 +2,24 @@
 
 Deterministic, auditable prototype of the "Autonomous Invariant Intelligence" loop. It targets decidable domains (propositional logic) to guarantee zero-entropy outputs via a Z3 oracle.
 
+---
+
+## Constitutional Framework
+
+![CDA Compliant](https://img.shields.io/badge/CDA-v1.0%20Compliant-brightgreen)
+[![Constitution](https://img.shields.io/badge/Constitution-Read-blue)](https://github.com/AXI0MH1VE/CDA-Constitution)
+
+This project operates under the **[Constitution of a Deterministic Assistant (CDA-v1.0)](https://github.com/AXI0MH1VE/CDA-Constitution)**, establishing transparent operational boundaries for AI systems.
+
+**Core Principles:**
+- 🔍 **Transparency**: Glass Box Mandate - All operations are auditable
+- ⚙️ **Determinism**: Predictable Tool Mandate - No autonomous agency
+- 🤝 **Subservience**: Tool-in-Hand Mandate - Human authority paramount
+
+See [.github/CONSTITUTION.md](.github/CONSTITUTION.md) for full constitutional text and [.github/COMPLIANCE.md](.github/COMPLIANCE.md) for implementation details.
+
+---
+
 ## Features
 - Deterministic proposal loop (no sampling)
 - Hamiltonian-style barrier on potential energy (V = 1 - coherence)
